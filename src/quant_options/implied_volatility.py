@@ -1,12 +1,12 @@
 # implied_volatility.py
 """
-Calculate implied volatility for European call options.
+Calculate implied volatility for European call options. 
 
 This module provides a function to compute the vega-weighted average implied
 volatility from market option prices using the Black-Scholes model.
 """
 
-from typing import List
+from typing import List 
 import numpy as np
 from scipy.stats import norm
 from scipy.optimize import newton, brentq
@@ -84,3 +84,4 @@ def get_implied_volatility(
     # Vega-weighted average
     iv_vega_weighted = sum(iv * vega for iv, vega in zip(iv_list, vega_list)) / sum(vega_list)
     return iv_vega_weighted
+
