@@ -1,6 +1,6 @@
 # implied_volatility.py
 """
-Calculate implied volatility for European call options.
+Calculate implied volatility for European call options. 
 
 This module provides a function to compute the vega-weighted average implied
 volatility from market option prices using the Black-Scholes model.
