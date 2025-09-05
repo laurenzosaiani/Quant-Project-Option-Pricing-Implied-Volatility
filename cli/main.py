@@ -15,7 +15,7 @@ import numpy as np
 
 from pricing import black_scholes_option_price
 from pnl import calculate_pnl_present_value
-from analysis import plot_cumulative_pnl
+from analysis import plot_cumulative_pnl, plot_terminal_distribution, plot_payoff_vs_distribution
 from get_option_data import get_options_data
 from implied_volatility import get_implied_volatility
 
