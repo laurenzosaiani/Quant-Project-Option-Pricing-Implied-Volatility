@@ -1,4 +1,3 @@
-# main.py
 """
 Main script for option pricing and Monte Carlo simulation (vectorised version).
 
@@ -8,7 +7,7 @@ This program:
 3. Computes theoretical option prices.
 4. Runs Monte Carlo simulations of stock prices using GBM.
 5. Calculates profit/loss (PnL).
-6. Plots cumulative PnL across simulations.
+6. Plots cumulative PnL, terminal stock price distribution, and payoff overlay.
 """
 
 import numpy as np
@@ -18,48 +17,7 @@ from pnl import calculate_pnl_present_value
 from analysis import plot_cumulative_pnl, plot_terminal_distribution, plot_payoff_vs_distribution
 from get_option_data import get_options_data
 from implied_volatility import get_implied_volatility
-
-
-def simulate_gbm_paths(
-    S0: float, r: float, sigma: float, T: float, n_paths: int, steps_per_year: int = 252
-) -> np.ndarray:
-    """
-    Vectorised simulation of stock paths using GBM.
-
-    Parameters
-    ----------
-    S0 : float
-        Initial stock price.
-    r : float
-        Risk-free rate.
-    sigma : float
-        Volatility (annualised).
-    T : float
-        Time horizon in years.
-    n_paths : int
-        Number of Monte Carlo paths to simulate.
-    steps_per_year : int
-        Steps per year (default = 252, trading days).
-
-    Returns
-    -------
-    np.ndarray
-        Simulated stock price paths, shape (n_paths, steps + 1).
-    """
-    n_steps = int(steps_per_year * T)
-    dt = T / n_steps
-
-    # Generate random shocks
-    Z = np.random.normal(size=(n_paths, n_steps))
-    increments = (r - 0.5 * sigma**2) * dt + sigma * np.sqrt(dt) * Z
-
-    # Cumulative log returns
-    log_paths = np.cumsum(increments, axis=1)
-    log_paths = np.hstack([np.zeros((n_paths, 1)), log_paths])  # add initial 0
-
-    # Convert to price paths
-    S_paths = S0 * np.exp(log_paths)
-    return S_paths
+from gbm_simulated_paths import gbm_stock_path
 
 
 def main() -> None:
@@ -94,9 +52,9 @@ def main() -> None:
         f"\n  Put Price : ${put_price_bs:.2f}"
     )
 
-    # Vectorised Monte Carlo
-    S_paths = simulate_gbm_paths(S, r, sigma, T, num_sims, steps_per_year)
-    S_T = S_paths[:, -1]  # final prices
+    # Vectorised Monte Carlo simulation (n_paths = num_sims)
+    S_paths = gbm_stock_path(S, r, sigma, T, steps_per_year, n_paths=num_sims)
+    S_T = S_paths[:, -1]  # terminal prices
 
     # Vectorised PnL at present value
     discount = np.exp(-r * T)
@@ -119,6 +77,10 @@ def main() -> None:
 
     # Plot cumulative PnL
     plot_cumulative_pnl(num_of_sims.tolist(), cumulative_call_pnl.tolist(), cumulative_put_pnl.tolist())
+
+    # --- New visuals ---
+    plot_terminal_distribution(S_T, K)
+    plot_payoff_vs_distribution(S_T, K, C, P)
 
 
 if __name__ == "__main__":
