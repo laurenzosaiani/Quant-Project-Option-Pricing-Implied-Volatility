@@ -7,7 +7,8 @@ This module provides plotting functions to analyze cumulative PnL from Monte Car
 
 from typing import List
 import matplotlib.pyplot as plt
-
+import numpy as np
+from scipy.stats import lognorm
 
 def plot_cumulative_pnl(
     num_of_sims: List[int],
@@ -83,10 +84,11 @@ def plot_terminal_distribution(ST: np.ndarray, K: float) -> None:
 
 
 def plot_payoff_vs_distribution(
-    ST: np.ndarray, K: float, call_prem: float, put_prem: float
+    ST: np.ndarray, K: float, call_prem: float, put_prem: float, show_histogram: bool = True
 ) -> None:
     """
-    Overlay option payoffs with distribution of simulated terminal stock prices.
+    Plot option payoffs (in $) vs simulated terminal stock prices.
+    Optionally overlay a histogram of terminal stock prices on a secondary axis.
 
     Parameters
     ----------
@@ -98,23 +100,31 @@ def plot_payoff_vs_distribution(
         Premium paid for the call option.
     put_prem : float
         Premium paid for the put option.
+    show_histogram : bool, default True
+        Whether to overlay histogram of terminal stock prices.
     """
     x = np.linspace(min(ST), max(ST), 400)
     call_payoff = np.maximum(x - K, 0.0) - call_prem
     put_payoff = np.maximum(K - x, 0.0) - put_prem
 
-    plt.figure(figsize=(10, 6))
-    plt.hist(ST, bins=50, density=True, alpha=0.5, label="Simulated $S_T$")
-    plt.plot(x, call_payoff, "g-", lw=2, label="Call Payoff (net)")
-    plt.plot(x, put_payoff, "r-", lw=2, label="Put Payoff (net)")
+    fig, ax1 = plt.subplots(figsize=(10, 6))
 
-    # Strike line
-    plt.axvline(K, color="black", linestyle="--", lw=1.5, label=f"Strike K={K}")
+    # Plot payoff curves in dollars
+    ax1.plot(x, call_payoff, "g-", lw=2, label="Call Payoff ($)")
+    ax1.plot(x, put_payoff, "r-", lw=2, label="Put Payoff ($)")
+    ax1.set_xlabel("Terminal Stock Price $S_T$")
+    ax1.set_ylabel("Option Payoff ($)")
+    ax1.axvline(K, color="black", linestyle="--", lw=1.5, label=f"Strike K={K}")
+    ax1.grid(True, linestyle="--", alpha=0.6)
+    ax1.legend(loc="upper left")
 
-    plt.title("Option Payoff vs Distribution of Terminal Stock Price")
-    plt.xlabel("Price at Expiry $S_T$")
-    plt.ylabel("Payoff / Density")
-    plt.legend()
-    plt.grid(True, linestyle="--", alpha=0.6)
+    # Optional histogram on secondary axis
+    if show_histogram:
+        ax2 = ax1.twinx()
+        ax2.hist(ST, bins=50, density=True, alpha=0.3, color="blue", label="Simulated $S_T$")
+        ax2.set_ylabel("Density")
+        ax2.legend(loc="upper right")
+
+    plt.title("Option Payoff vs Terminal Stock Price")
     plt.tight_layout()
     plt.show()
