@@ -9,6 +9,11 @@ This program:
 5. Calculates profit/loss (PnL).
 6. Plots cumulative PnL, terminal stock price distribution, and payoff overlay.
 """
+import sys
+import os
+
+# Add the 'src/quant_options' folder to Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src/quant_options')))
 
 import numpy as np
 
