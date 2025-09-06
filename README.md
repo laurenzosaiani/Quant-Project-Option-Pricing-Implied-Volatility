@@ -74,14 +74,7 @@ pip install numpy scipy matplotlib yfinance
 
 ```bash
 export PYTHONPATH=$(pwd)
-python -m cli.main\
-  --ticker AAPL \
-  --strike 200 \
-  --call-prem 5.25 \
-  --put-prem 4.80 \
-  --expiry-years 0.25 \
-  --rate 0.04 \
-  --sims 10000
+python -m src.cli.main --ticker AAPL --strike 200 --call-prem 5.25 --put-prem 4.80 --expiry-years 0.25 --rate 0.04 --sims 10000
 
 ```
 
