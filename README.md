@@ -36,20 +36,34 @@ I plan to extend this project with:
 - Incorporating bid/ask spreads and transaction costs.
 
 ## Installation & Setup
+
+Follow these steps to set up the project and run an example simulation.
+
+### 1. Clone the repository
+
 ```bash
-# Clone this repo
-git clone https://github.com/laurenzosaiani/Quant-Project-Option-Pricing-Implied-Volatility.git
+git clone git@github.com:laurenzosaiani/Quant-Project-Option-Pricing-Implied-Volatility.git
 cd Quant-Project-Option-Pricing-Implied-Volatility
 
-# Create environment & install dependencies
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
 ```
+### 2. Create and activate a virtual environment 
+
+# macOS/Linux
+python -m venv .venv
+source .venv/bin/activate
+
+# Windows (PowerShell)
+python -m venv .venv
+.venv\Scripts\activate
+
+### 3. Install dependencies
+
+pip install numpy scipy matplotlib yfinance
 
 ## Usage
 
 ```bash
-python main.py \
+python cli/main.py \
   --ticker AAPL \
   --strike 200 \
   --call-prem 5.25 \
