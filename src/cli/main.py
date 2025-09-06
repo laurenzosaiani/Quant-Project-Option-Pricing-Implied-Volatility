@@ -17,12 +17,13 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 import numpy as np
 
-from pricing import black_scholes_option_price
-from pnl import calculate_pnl_present_value
-from analysis import plot_cumulative_pnl, plot_terminal_distribution, plot_payoff_vs_distribution
-from get_option_data import get_options_data
-from implied_volatility import get_implied_volatility
-from gbm_simulated_paths import gbm_stock_path
+from quant_options.pricing import black_scholes_option_price
+from quant_options.pnl import calculate_pnl_present_value
+from quant_options.analysis import plot_cumulative_pnl, plot_terminal_distribution, plot_payoff_vs_distribution
+from quant_options.get_option_data import get_options_data
+from quant_options.implied_volatility import get_implied_volatility
+from quant_options.gbm_simulated_paths import gbm_stock_path
+
 
 
 def main() -> None:
