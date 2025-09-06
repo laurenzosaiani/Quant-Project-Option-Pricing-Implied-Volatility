@@ -48,12 +48,16 @@ cd Quant-Project-Option-Pricing-Implied-Volatility
 ```
 ### 2. Create and activate a virtual environment 
 
-```bash
 #### macOS/Linux
+```bash
 python -m venv .venv
 source .venv/bin/activate
 
+```
+
+
 #### Windows (PowerShell)
+```bash
 python -m venv .venv
 .venv\Scripts\activate
 
