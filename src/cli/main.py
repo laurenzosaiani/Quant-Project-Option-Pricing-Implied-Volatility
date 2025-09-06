@@ -12,9 +12,6 @@ This program:
 import sys
 import os
 
-# Add the 'src/quant_options' folder to Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src/quant_options')))
-
 import numpy as np
 
 from src.quant_options.pricing import black_scholes_option_price
