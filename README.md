@@ -73,7 +73,8 @@ pip install numpy scipy matplotlib yfinance
 ## Usage
 
 ```bash
-python cli/main.py \
+export PYTHONPATH=$(pwd)
+python -m cli.main\
   --ticker AAPL \
   --strike 200 \
   --call-prem 5.25 \
