@@ -72,30 +72,14 @@ pip install numpy scipy matplotlib yfinance
 
 ## Usage
 
-
-### macOS / Linux
 ```bash
-PYTHONPATH=$(pwd)/src python cli/main.py \
+python cli/main.py \
   --ticker AAPL \
   --strike 200 \
   --call-prem 5.25 \
   --put-prem 4.80 \
   --expiry-years 0.25 \
   --rate 0.04 \
-  --sims 10000
-
-```
-
-### Windows (PowerShell)
-```bash
-$env:PYTHONPATH = "$(pwd)/src"
-python cli/main.py `
-  --ticker AAPL `
-  --strike 200 `
-  --call-prem 5.25 `
-  --put-prem 4.80 `
-  --expiry-years 0.25 `
-  --rate 0.04 `
   --sims 10000
 
 ```
