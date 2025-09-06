@@ -20,7 +20,7 @@ import numpy as np
 from src.quant_options.pricing import black_scholes_option_price
 from src.quant_options.pnl import calculate_pnl_present_value
 from src.quant_options.analysis import plot_cumulative_pnl, plot_terminal_distribution, plot_payoff_vs_distribution
-from src.quant_options.get_option_data import get_options_data
+from src.quant_options.get_options_data import get_options_data
 from src.quant_options.implied_volatility import get_implied_volatility
 from src.quant_options.gbm_simulated_paths import gbm_stock_path
 
