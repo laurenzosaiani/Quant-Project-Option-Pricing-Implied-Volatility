@@ -10,7 +10,7 @@ from typing import List
 import numpy as np
 from scipy.stats import norm
 from scipy.optimize import newton, brentq
-from pricing import black_scholes_option_price
+from src.quant_options.pricing import black_scholes_option_price
 
 
 def get_implied_volatility(
@@ -84,4 +84,5 @@ def get_implied_volatility(
     # Vega-weighted average
     iv_vega_weighted = sum(iv * vega for iv, vega in zip(iv_list, vega_list)) / sum(vega_list)
     return iv_vega_weighted
+
 
