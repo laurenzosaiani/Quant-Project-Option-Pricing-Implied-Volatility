@@ -42,7 +42,7 @@ Follow these steps to set up the project and run an example simulation.
 ### 1. Clone the repository
 
 ```bash
-git clone git@github.com:laurenzosaiani/Quant-Project-Option-Pricing-Implied-Volatility.git
+git clone https://github.com/laurenzosaiani/Quant-Project-Option-Pricing-Implied-Volatility.git
 cd Quant-Project-Option-Pricing-Implied-Volatility
 
 ```
